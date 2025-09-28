@@ -1,0 +1,2005 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PLH Store</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Poppins', sans-serif; }
+    .navbar-brand {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: white !important;
+    }
+    .bi-cart { color: white; cursor: pointer; font-size: 1.5rem; }
+    .cart-container { position: relative; margin-left: 10px; }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+    }
+    .categoria { display: none; }
+    .card-img-top { object-fit: cover; height: 200px; width: 100%; border-radius: 12px; }
+    .card { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    /* Flechas negras */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon { background-image: none; }
+    .carousel-control-prev-icon::after,
+    .carousel-control-next-icon::after {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 20px;
+      border-top: 3px solid black; border-right: 3px solid black;
+    }
+    .carousel-control-prev-icon::after { transform: rotate(-135deg); }
+    .carousel-control-next-icon::after { transform: rotate(45deg); }
+    /* Botón X negro */
+    .btn-close { background: none; width: 1.5rem; height: 1.5rem; opacity: 1; }
+    .btn-close::before {
+      content: '\2715';
+      font-size: 1.2rem; color: black; font-weight: bold;
+    }
+  </style>
+<style>
+#envioGratis.activo {
+    border: 2px solid #2e7d32 !important;
+    background-color: #e8f5e9 !important;
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
+}
+.correo-inactivo {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+</style>
+<style>
+.btn-success:disabled {
+  background-color: #e0e0e0 !important;
+  border-color: #e0e0e0 !important;
+  color: #555 !important;
+  cursor: not-allowed;
+}
+</style>
+<style>
+.card {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #fff;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+}
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+}
+.boton-agregar {
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: #fff !important;
+  font-weight: bold;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Poppins', sans-serif;
+  margin-top: 10px;
+}
+.boton-agregar:hover {
+  background: linear-gradient(135deg, #2ebf50, #1e7a35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+.boton-agregar:active {
+  transform: scale(0.97);
+}
+.boton-agregar i {
+  font-size: 1.1rem;
+}
+</style>
+<style>
+/* Tarjeta de producto premium */
+.card {
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+.card-img-top {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  height: 220px;
+  object-fit: cover;
+}
+.card-body {
+  padding: 18px;
+}
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin-bottom: 8px;
+}
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+.card-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #28a745;
+  margin-bottom: 12px;
+}
+/* Botón ultra premium */
+.boton-agregar {
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: #fff !important;
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 14px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+.boton-agregar:hover {
+  background: linear-gradient(145deg, #3ddc84, #2fb86d);
+  box-shadow: 0 6px 18px rgba(39, 174, 96, 0.4);
+  transform: translateY(-2px);
+}
+.boton-agregar:active {
+  transform: scale(0.98);
+}
+.boton-agregar i {
+  font-size: 1.2rem;
+}
+</style>
+<style>
+.acerca-nosotros-section { background-color: #f1f1f1; }
+.acerca-parallax {
+  background-image: url('sbk_store_banner_horizontal_centered.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+  width: 100%;
+}
+.acerca-contenido { background-color: #f1f1f1; }
+</style>
+<style>
+.btn-whatsapp {
+  display: inline-block;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff !important;
+  padding: 12px 28px;
+  margin: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-whatsapp:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(18, 140, 126, 0.3);
+}
+
+.btn-instagram {
+  display: inline-block;
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+  color: #fff !important;
+  padding: 12px 28px;
+  margin: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-instagram:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(221, 42, 123, 0.3);
+}
+</style>
+<style>
+.envio-gratis-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+.card-wrapper { position: relative; }
+</style>
+<style>
+.btn-primary, .btn-info, .btn-whatsapp, .btn-instagram {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: #fff !important;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  white-space: normal;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-primary:hover, .btn-info:hover, .btn-whatsapp:hover, .btn-instagram:hover {
+  background: linear-gradient(135deg, #3ddc84, #2fb86d);
+  box-shadow: 0 6px 18px rgba(39, 174, 96, 0.4);
+  transform: translateY(-2px);
+}
+.btn-primary:active, .btn-info:active, .btn-whatsapp:active, .btn-instagram:active {
+  transform: scale(0.98);
+}
+</style>
+<style>
+.faq-section {
+  margin-top: 50px;
+}
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.faq-question:hover {
+  color: #27ae60;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  opacity: 1;
+}
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+</style>
+
+<style>
+  /* Evitar temblor en el input del modal de seguimiento */
+  #seguimientoModal .modal-dialog {
+    transition: none !important;
+  }
+  #seguimientoModal input {
+    font-size: 1rem;
+    padding: 10px;
+  }
+</style>
+
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container-fluid">
+<a class="navbar-brand d-flex align-items-center" href="#">
+        PLH Store
+        
+<div class="cart-container d-flex align-items-center ms-3">
+  <div onclick="abrirCarrito()" style="position:relative;">
+    <i class="bi bi-cart"></i>
+    <span class="cart-badge" id="cartCount">0</span>
+  </div>
+  <div class="ms-3" onclick="abrirSeguimiento()" style="cursor:pointer;">
+    <i class="bi bi-truck"></i>
+  </div>
+</div>
+
+</a>
+<button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('inicio')">Inicio</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Chombas')">Chombas</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Pantalones')">Pantalones</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Buzos')">Buzos</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Remeras')">Remeras</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Camperas')">Camperas</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('Zapatillas')">Zapatilllas</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="mostrarCategoria('acercade')">Acerca de Nosotros</a></li></ul>
+</div>
+</div>
+</nav>
+<div class="container my-4" id="contenedorCategorias"><div class="categoria row acerca-nosotros-section" id="inicio">
+<section class="hero d-flex align-items-center justify-content-center text-center text-white" style="height:100vh; background: url('banner1.jpg') center/cover no-repeat; position: relative;">
+<div style="background: rgba(0,0,0,0.5); position: absolute; inset: 0;"></div>
+<div style="position: relative; z-index: 2;">
+<h1 class="display-3 fw-bold">Bienvenido a PLH Store</h1>
+<p class="lead">Tu tienda online de confianza para empilcharte</p>
+<button class="btn btn-light btn-lg mt-3" onclick="document.querySelector('.navbar-toggler').click()">Ver Categorías</button>
+</div>
+</section>
+<div class="carousel slide my-5" data-bs-ride="carousel" id="carouselInicio">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<img alt="Bicicletas 1" class="d-block w-100 rounded-3 shadow" src="banner1.jpg"/>
+<div class="carousel-caption d-none d-md-block">
+<h5>Explora Bicicletas</h5>
+<p>Modelos modernos y resistentes</p>
+</div>
+</div>
+<div class="carousel-item">
+<img alt="Bicicletas 2" class="d-block w-100 rounded-3 shadow" src="banner2.jpg"/>
+<div class="carousel-caption d-none d-md-block">
+<h5>Camperas</h5>
+<p>Todo lo que necesitas para tu bici</p>
+</div>
+</div>
+<div class="carousel-item">
+<img alt="Bicicletas 3" class="d-block w-100 rounded-3 shadow" src="banner3.jpg"/>
+<div class="carousel-caption d-none d-md-block">
+<h5>Confianza y Calidad</h5>
+<p>Los mejores repuestos y atención personalizada</p>
+</div>
+</div>
+</div>
+<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselInicio" type="button">
+<span class="carousel-control-prev-icon"></span>
+</button>
+<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselInicio" type="button">
+<span class="carousel-control-next-icon"></span>
+</button>
+</div>
+
+<div class="container my-5 text-center">
+<h2 class="fw-bold mb-4">¿Por qué elegirnos?</h2>
+<div class="row g-4">
+<div class="col-md-4">
+<div class="p-4 border rounded-3 shadow-sm h-100">
+<i class="bi bi-truck display-4 text-dark"></i>
+<p class="mt-3">Envíos rápidos a todo el país</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="p-4 border rounded-3 shadow-sm h-100">
+<i class="bi bi-tools display-4 text-dark"></i>
+<p class="mt-3">todo original</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="p-4 border rounded-3 shadow-sm h-100">
+<i class="bi bi-person-check display-4 text-dark"></i>
+<p class="mt-3">Atención personalizada</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container my-5">
+<h2 class="text-center fw-bold mb-4">Lo que dicen nuestros clientes</h2>
+<div class="carousel slide" data-bs-ride="carousel" id="carouselTestimonios">
+<div class="carousel-inner">
+<div class="carousel-item active text-center">
+<img alt="Cliente feliz" class="rounded-circle mb-3" src="cliente1.jpg" style="width:100px;height:100px;object-fit:cover;"/>
+<h5>Juan Pérez</h5>
+<p class="text-muted">“Compré 5 prendas y llegó en 48 horas. Excelente atención.”</p>
+</div>
+<div class="carousel-item text-center">
+<img alt="Cliente satisfecha" class="rounded-circle mb-3" src="cliente2.jpg" style="width:100px;height:100px;object-fit:cover;"/>
+<h5>María López</h5>
+<p class="text-muted">“Me asesoraron muy bien para elegir una prenda para mi hijo, ¡la recomiendo totalmente!”</p>
+</div>
+<div class="carousel-item text-center">
+<img alt="Cliente contento" class="rounded-circle mb-3" src="cliente3.jpg" style="width:100px;height:100px;object-fit:cover;"/>
+<h5>Carlos Díaz</h5>
+<p class="text-muted">“La mejor tienda online de ropa, rápido y confiable.”</p>
+</div>
+</div>
+<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselTestimonios" type="button">
+<span class="carousel-control-prev-icon"></span>
+</button>
+<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselTestimonios" type="button">
+<span class="carousel-control-next-icon"></span>
+</button>
+</div>
+</div>
+</div><div class="categoria row acerca-nosotros-section" id="acercade">
+<div class="acerca-contenido text-center py-5">
+<div class="container-fluid">
+<div class="row mb-4">
+<div class="col-12">
+<h2 class="fw-bold mb-3">Acerca de Nosotros</h2>
+<p class="text-muted">Ofrecemos las mejores pilchas con atención personalizada y envíos rápidos en todo el país.</p>
+</div>
+</div>
+<div class="row text-start">
+<div class="col-md-4 mb-4">
+<div class="p-4 bg-white rounded shadow-sm h-100">
+<i class="bi bi-shop" style="font-size:2rem; color:#28a745;"></i>
+<h5 class="fw-bold mt-3">Quiénes Somos</h5>
+<p>Somos una tienda especializada en ropa original de alta calidad, comprometidos con la excelencia y la innovación.</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="p-4 bg-white rounded shadow-sm h-100">
+<i class="bi bi-shield-check" style="font-size:2rem; color:#28a745;"></i>
+<h5 class="fw-bold mt-3">Nuestro Compromiso</h5>
+<p>Brindamos asesoramiento experto y productos seleccionados para garantizar la mejor experiencia en cada compra.</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="p-4 bg-white rounded shadow-sm h-100">
+<i class="bi bi-truck" style="font-size:2rem; color:#28a745;"></i>
+<h5 class="fw-bold mt-3">Envíos y Beneficios</h5>
+<p>Realizamos envíos rápidos y seguros a todo el país, con opciones de envío gratis en compras superiores a $200.000. Entregamos tu compra en un máximo de 3 días hábiles.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<!-- Modal Producto -->
+<div aria-hidden="true" class="modal fade" id="productoModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="productoTitulo"></h5>
+<button aria-label="Cerrar" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+</div>
+<div class="modal-body">
+<div class="carousel slide" data-bs-ride="carousel" id="productoCarrusel">
+<div class="carousel-inner" id="productoImagenes"></div>
+<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#productoCarrusel" type="button">
+<span class="carousel-control-prev-icon"></span>
+</button>
+<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#productoCarrusel" type="button">
+<span class="carousel-control-next-icon"></span>
+</button>
+</div>
+<p class="mt-3" id="productoDescripcion"></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Carrito -->
+<div aria-hidden="true" class="modal fade" id="carritoModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Carrito</h5>
+<button aria-label="Cerrar" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+</div>
+<div class="modal-body" id="carritoContenido">
+<p>Tu carrito está vacío.</p>
+</div>
+<div class="modal-footer">
+<hr/>
+<h6>Datos del comprador</h6>
+<div class="mb-2"><label for="datoNombre" style="font-weight:bold;">Nombre</label><input class="form-control" id="datoNombre" placeholder="Nombre"/></div>
+<div class="mb-2"><label for="datoApellido" style="font-weight:bold;">Apellido</label><input class="form-control" id="datoApellido" placeholder="Apellido"/></div>
+<div class="mb-2"><label for="datoDni" style="font-weight:bold;">DNI</label><input class="form-control" id="datoDni" inputmode="numeric" maxlength="10" placeholder="Ej: 12.345.678" type="tel"/><div class="invalid-feedback" style="display:none; color:red; font-size:0.9rem;">El DNI debe tener 8 dígitos.</div></div>
+<div class="mb-2"><label for="datoTelefono" style="font-weight:bold;">Teléfono</label><div class="input-group"><span class="input-group-text">+54</span><input class="form-control" id="datoTelefono" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="Ej: 1123456789" type="tel"/></div><div class="invalid-feedback" style="display:none; color:red; font-size:0.9rem;">El número debe tener 10 dígitos.</div></div>
+<div class="mb-2"><label for="datoDireccion" style="font-weight:bold;">Dirección</label><input class="form-control" id="datoDireccion" placeholder="Dirección"/></div>
+<div class="mb-2"><label for="datoCiudad" style="font-weight:bold;">Ciudad</label><input class="form-control" id="datoCiudad" placeholder="Ciudad"/></div>
+<div class="mb-2"><label for="datoProvincia" style="font-weight:bold;">Provincia</label><input class="form-control" id="datoProvincia" placeholder="Provincia"/></div>
+<div class="mb-2"><label for="datoCp" style="font-weight:bold;">Código postal</label><input class="form-control" id="datoCp" inputmode="numeric" pattern="[0-9]*" placeholder="Código postal" type="tel"/></div>
+<!-- Envío obligatorio -->
+<div class="d-flex align-items-center mb-3 p-2 border rounded bg-light envio-gratis" id="envioGratis" style="display:none; transition: all 0.3s ease;"><div style="font-weight:bold; font-size:1rem; color:#2e7d32;">Envío gratis<br/><span style="font-weight:normal; font-size:0.9rem; color:#555;">Disponible para compras mayores a $200.000</span></div></div><div class="d-flex align-items-center mb-3 p-2 border rounded bg-light">
+<img alt="Correo Argentino" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqAUf9jbemuomkEtRDzlx8Px4AqX5rqMsqTw&amp;s" style="width:50px; height:auto; margin-right:10px;"/>
+<div>
+<strong>Envío a domicilio</strong><br/>
+    Correo Argentino - $7.000 ARS
+  </div>
+</div>
+<button class="btn btn-success btn-success" disabled="true">Finalizar Compra</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    const productos = {
+     Chombas: [
+
+        {
+          titulo: "CHOMBA NIKE GOLF A",
+          descripcion: "TALLES S M L XL.",
+          precio: "$230.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/2e8e0a98377594e267c44614dfcee2f6f87ca8ffda15d34310c0cf5640e51221242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/85bdaf6e6c96060372b299c44e01edbb0d15fc8f2697e686837bd38cc37c2b45242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/6a3390b5f341877102fbed231fc9e78f7c04010d43c7e4ab18473693bbfc51f4242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CHOMBA NIKE DRI-FIT",
+          descripcion: "TALLES S M L XL.",
+          precio: "$350.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/41ed1822dad83935162bfc5792860bdce946478dfba97adf6085b2eb28ab6983242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/28c8fb9da04d4338264a276284e43a45dac55ad5bbf44daa97ae21facc0b9c39242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/040a864767adcf348825be595ff19ab1d92794d4e127b145283bbd8967ce9f8e242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CHOMBA NIKE BASKETBALL",
+          descripcion: "TALLES S M L XL.",
+          precio: "$180.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e07124e9b4b56fc661add3d9ec9381d2f7ac461ec159ab9855aa9c984bed5559242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e336ecac1e5c6662bd910da22136da9bb570d0fe6f7d22c42ad49e74fe47f62a242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e868ca427780c529e5cd86e59c4271a98c5f42ffe111dd7a70fb49efe966b3b8242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CHOMBA NIKE FITDRY",
+          descripcion: "TALLES S M L XL.",
+          precio: "$299.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/f51dbf52ce9af1b82c4e9c31b35e1d58f9c91fbe54657d09be0a03ee1c9d9322242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/18087a9602056fbf2fb793dfd99758a9e9175498586ea0ac46711c8e454dfde7242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/627d1248b411f91a5f55e16b04d554c95f2c3b7ab4a7fdcdd5898b429dba70eb242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Nike x Disney",
+          descripcion: "TALLES S M L XL.",
+          precio: "$329.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a7837009148a9ae84cf5f2d1414ecb4d70374b68192e6ef859fbdd5d80113fab242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/0b493b8f8fe39dd06b3b7dc7c4c335fadf3832d4585d9e85f4685042f37ac781242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/1dbe3c7f1860e4f2445a7d3b45e9c6147bff550778467337de861f3c20a31cad242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Nike V",
+          descripcion: "TALLES S M L XL.",
+          precio: "$99.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/cee14a31f2f6d089cd681e964efd816913060581c09ffe1c9e30f9226f1def2e242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3b26c9b43b8ff507caf19bf55d4401d71a420fa604ba4ae0d7fb1984591427ba242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/1c61bad9cb2281833c17d85447745b436582634b5bd2d79f59dd384f1614e3de242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Nike A",
+          descripcion: "TALLES S M L XL.",
+          precio: "$145.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/7bf5f1e54e869f2922fb4aa49ed4b2966f9e24912ec4536705c695bffa4481ba242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/cec56719508404996a8ff596fcb61aea35be170a2081233485456c6bf618bb41242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e6ed0506e262c5d062061e60a102bc7c1f8afa7d053f1eb255ece6fe76fdd4f8242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Nike G",
+          descripcion: "TALLES S M L XL.",
+          precio: "$267.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/5b6c0f02e3b9c783f54dcf0d1261c4c0ea98ecb844ba596cbb985d099bcf400b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/8ecb4e6ec9d5c56f3dcfe3f6c7c2fcf2aade8e3a771779179d6a8d70e29b1f90242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/9dfd26806fc73e3085bdeb12bfc95383dd5838a3c7a4212dc3e55d4d67e47864242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Tommy Hilfiger G",
+          descripcion: "TALLES S M L XL.",
+          precio: "$330.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/cbb436eb4a03f8303629ea267135990cbfc7ff3b6b559d34df8b8d95c74e0f02242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/d3508065e8533d56d99afbd46e4851b57355a4083d63669c7677841d9d16f72e242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4f30852310683ba51e9da66165121ba8d18f2be28a519f2db2814cb2d5b04ec2242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Tommy Hilfiger R",
+          descripcion: ".",
+          precio: "$69.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/fb26df1e442d41429184fc8c97be3a07f1cf06714e92dcc289a11a3fdd2e824b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/15e5194c6ddc631a1716595ded16220aa15efb41a6a3315c29645ecfa6472bd5242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4b2b27e1c8d147c4c42442f1d6ead4defc36795d606453e58a00c58b93eadccd242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Chomba Tommy Hilfiger A",
+          descripcion: "TALLES S M L XL.",
+          precio: "$367.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/2e8ab489a32fd1820627e6b868ff87743c4f48b51e0de578d5d60d2d48a9d939242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4aa1247c6f49c37c5d4dcc21436e7febcb2db6ae9b1cf7a517e9ad6aac6136b6242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/1f82569e308f40251c54afb2502bec4466e55e8880b8bdacd6fd72f13bf891ab242224.jpg"
+          ]
+        }
+      ],
+      Pantalones: [
+
+        {
+          titulo: "ROMPEVIENTO NIKE",
+          descripcion: "TALLES S M L XL",
+          precio: "$56.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/d760d1879ec48c25b8becdfd55d1026fc0c9c8349386fdbea12c471272f26043242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/74ddf49f8082eb7847e3e37657909c2837c02d37ccea32ad57c3873e89a879d9242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/db9cbf452d25e769b8034de74c62bf1465d942eec7f4bc6e30f6146e52d5d8af242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$14.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/4404f3e2245e04a29f1012485ae784e0560aba8b11fb2bb2f1e462681321f1b0242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/823b9ae3bffd754016c338e609383bbbea5482f6511402e846a499b3c6f59069242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/45b1d7e6ce6025774c6340b84a2bb77d20fb2658ea8555897eb28345a0fc8889242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "JOGGING ROMPEVIENTO NIKE SB",
+          descripcion: "TALLES S M L XL.",
+          precio: "$23.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e00d94f5a80ac39a5e8d5710b73a1ed81cfbbec2c89aafe418fe469c016ad345242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/2f8bf1650511a1610bb8ffad030dcf0079bc22ab193ed696598e4bef02bc3768242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/13ce74b681dec80cdf8708f712cbbea56221e13f1b624456f974b0b5c357c0bb242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "NIKE BIG SWOOSH BOOTLEG",
+          descripcion: ".",
+          precio: "$37.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/5e82a3096ba3d7cab9789c17b4c0aa0396273bc1c57e5dc5a7d8c6c36f132709242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3693b158641b05d87334f769050c0d5d3731dec6e7f8c7ffe25b1e52aaa08513242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/04b502ab94e785f1014aa4787c0f3212e2da4b4be981b4170d7471f827d354d1242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE VINTAGE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$25.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/33d76ad14f01b81d6d9ed30a3193cf364fcd24ea2f79575b8382af852e18d3e3242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/6bc1c5abfabbc9605c709c864d7595beacffb87c7f157b5c7fc24c9dbf57521d242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/54316dc5f912e26ad88233f565cfa47599fe57ddcfcee22a701f55e87af10deb242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "PANTALON NIKE TECH",
+          descripcion: "TALLES S M L XL.",
+          precio: "$19.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/de812194f58965d7cf0ec5d7fcb5bc4e1bb86b9ef7758dc36f293e1614810bab242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/d28cbae36c72aac18ce525e65870fe7d95b4cfe36eb85474a0523a0cf87feb43242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/dcc9a70eb6f9fac623cb949527dbecea67663cf358794e4573eae51adeff242b242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE SPELL OUT",
+          descripcion: "TALLES S M L XL.",
+          precio: "$71.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a04781c5ed16d5f72e3639ba41752fb826f7c1a87140aa54716982915fac3bdb242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/2f82a470ad1d462fedac8e88b09a4f301348f0e6bfff01d6d5769ff33beae965242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/fcf0f9b07ffcf0cf6cf6d05aa541ebe22b61d02b5c26cbcb65ea097385236847242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE DOBLE SWOOSH BOOTLEG",
+          descripcion: "TALLES S M L XL.",
+          precio: "$7.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/6b211499b724e65632bdfdf1f5b3b0d4a140be3dca2935ef226e8206b4da794a242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/6a275871db10a201625cd8fba2a42051e82b32b52a1a2895e010361bbe4ed199242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a4944ff963d773e81f1ce614af477716e2fbf1e230445793acc7ef61255d7367242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE AZUL",
+          descripcion: "TALLES S M L XL.",
+          precio: "$31.500",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/764a2aed581df53e78e0ae47616b5174f45a78453d34cdbc92585215ec8e4307242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/d77daf3f1f7e38847ead39a42476af07abeced2be46fb79193e425a0bd5f2504242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/cbece35042c38af3c24282eb1e87bb3531ac49e6e8065d1cc4a060e99dc36c08242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "JOGGING NIKE BIG LOGO",
+          descripcion: "TALLES S M L XL.",
+          precio: "$9.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/47e4c10b5a03b56653bf6eeb8578a96d03cc097417519886ced1801e3d3efb26242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/53189e08f02e3e9f92e7c2b10b6ed8066354b03bdf8e12e7a4411572fd0d7c7c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/224b7cfe408c73daaa7b26f3fb9112f7ed129086b5c2338f796c3bc43e94a1f4242224.jpg"
+          ]
+        }
+      ],
+      Buzos: [
+
+        {
+          titulo: "BUZO NIKE GRIS OSCURO",
+          descripcion: "TALLES S M L XL.",
+          precio: "$67.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/2eb4818e5dfd7dbe59f8b930c1f9cd5fd5a9238f960960cfaa0926393892b997242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e162703a59471614c352e6e5f93d1f5841fb7c33ed2f46629eb490ddb636f3c6242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e9e896e241d5ec1b6cb8a18aafcea1cc4920eddb7d02133cd66b8f50a6f66244242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO NIKE SPORTWEAR",
+          descripcion: "TALLES S M L XL.",
+          precio: "$99.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/54ba5f8c1364ac00448337702e6132b68c27556a4ea2808742f02197fd6c993f242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/bd628b7620cc3dae09b23f7b529facd2b46a6e351401436a965c92d45d9e599b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/50a5d6e5d6df04c02587e9ccf5baf52861f800743fda377f769feeb9cdf53fdb242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "JORDAN SPELL OUT",
+          descripcion: "TALLES S M L XL.",
+          precio: "$209.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a998755c705cecbe4d9173274a08c06d5e9fdf34342775d3570f041bf8a5e15b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3f7d2c441593295c04ce377490360e1fc7c9cefdef8878168d8604642feb2324242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/c4205ca63e1a1c96b64e5d29ea09cc3681d4cf2f73fae295d5e34aa3038234f9242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO NIKE BIG SWOOSH",
+          descripcion: "TALLES S M L XL.",
+          precio: "$117.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/98935bb56bde4913485982589ea539e5f942ff874e978171969df5035d938ca6242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a0a1360931a116fd5aa981b76c421b5776cbd5c4ba36d83d7a48f4a359ea4237242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e6cbcb9753996fea96b60c4f4f0e0d7c6a1726648055344faeddec2e00761170242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Buzo Jordan",
+          descripcion: "TALLES S M L XL.",
+          precio: "$53.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/6160904d2d76fe9dd469e2ecdf8f6f8be03a402b22a805b7eb12c71e2e1ee98d242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a4523c576ecc7c13a4ea5a1fca22491ee5827bf08a5b7e4db0099896ef2eeccd242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/7d18339e3ea56aee119afabc40fdeaa4661dc84c741722bd939c77b9c58e05d8242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Nike Center Swoosh",
+          descripcion: "TALLES S M L XL.",
+          precio: "$78.377",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/faa06f14e7fcc27db6f46946642c9735499fb9f59b854c0cfb1a76829cd6197a242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/31256f670a1cb15943371a5fd9d55a3753ac0fca3a2ebd208c47a95d1554371c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e8f6b3b93f2f3c3bcbf9091a2ebfe1cd013d264774648b5f99c9d918d5be717c242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO PUMA",
+          descripcion: "TALLES S M L XL.",
+          precio: "$69.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/76b6b4545c690d6cc7538b713a1a790b80971aa8af9cfd04ef9b10339506de5b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/16ff7f80954d063d29b45b7588eca8b50e5e7b60a12955c1299cb190b55e6c63242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/0a7b024b055ef8d330e59aa3dc1ffde4952f4c1993e1b0db593c0f0a4f1e42d1242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CHAMPION",
+          descripcion: "TALLES S M L XL.",
+          precio: "$69.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/40a1b0d97f078c3ef56d6236b6f79635bf112b34aabaa7cb7878ac109c47b470242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/9a3771929683fd371a74844ac834477b9a1a830c6f5194e07284d30edb52d478242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/f5a61209d037b0b3d6ec06514e28dc159daeec0fc4ae493debf86b36f7e2a7e3242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO ADIDAS",
+          descripcion: "TALLES S M L XL.",
+          precio: "$14.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a2a6a8e632b1346ddbc7e9086264040dbb52a2695b0b9ebdc1b0b78a55adb061242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/d8046afca10c8be9a7920932f1b9b9d4e0c57ba31a7010c1bd2634f1c7870dc2242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/36d04c3abd9f9aaed1427bcda0250e4cfd1b434f10c12842ec1d7345d293dce7242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO ADIDAS SPELL OUT",
+          descripcion: "TALLES S M L XL.",
+          precio: "$99.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/29598827712d28b50ebbabd350fb663f03e922f65ef13d0f7355f5525818c9b8242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/70c41e619d9e15c5f494ec29339602d1f057154d2cb843a43f1eb51e2b810bae242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/b339c9547b1fb432892d31a94de90ce78ab5cb696767018a5ed7190621adc6c8242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO DICKIES ",
+          descripcion: "TALLES S M L XL.",
+          precio: "$99.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/ee402ad50b30b6e4e66f73752af4a9e68ee013bf597789b71d0136b513249bf4242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/579697327ef4cc0e5e29af30ad94c4ee5087c4d30a376c8ec49cbb711bdaf3bd242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4f8cd765c8facb27cae85fef5aaf925f07a47e4c0dabf48d232db3a3feb54e1d242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO POLO RALPH LAUREN G",
+          descripcion: "TALLES S M L XL.",
+          precio: "$99.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/c9f6737e442df409f8a19c52a9417b267b776995837dc5c031e82de9525f17d1242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/71f1348a7e69efb8a6556ccc842be929ac52cb3bfad4241eb4f32a722c89d6df242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/5960274d3dd20f7be51c42aa1d9419461d9a40fa64616480e6c289c5705a373c242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO POLO RALPH LAUREN B",
+          descripcion: "TALLES S M L XL.",
+          precio: "$43.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/d6065d5a8925635b99a8488527a88818d0cac2a7a79216c02ab543fa452a67b5242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/164d9ded0b02a114a2d97a1d8835d47cd5f1e0ae24bf40c8a9852810cbee2e1f242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/47c85865fa8e0f377986994dc7d407c8032cca75598e8d9fa80f440d9149a63f242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "BUZO POLO RALPH LAUREN",
+          descripcion: ".",
+          precio: "$48.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/3ed0f917d2426c4979bd403b9e8b7ace6ae28306f9a9f9498d3f8509e07aca64242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/08a2d139a79f2ed0b2a0ad893540eab43073411dec701fab311dbd4b7b8557bd242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/41bd1710d0c179d325eea1de4addd0da75114d3dac3f05a793792b0584fb5066242224.jpg"
+          ]
+        }
+      ],
+      Remeras: [
+
+        {
+          titulo: "NIKE PORTUGAL 2015",
+          descripcion: "TALLES S M L XL.",
+          precio: "$520.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/12b02e4bfb8c107e7f0774443cf7617550bf5d174302db919febd3a6d0f3a471242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a07b6ea3b8245bd52fa66f24dbd0413d0dcc5cdbbe152246f109ff3f763c608b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/cb0bf95c2e2dff1b347cfba014fa6249f674dc0c62435895e2add3bdc2d9a10f242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMISETA NIKE KOREA",
+          descripcion: "TALLES S M L XL.",
+          precio: "$44.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a299692eefee4296812d3795db9d4d47a4c97bc6a90812f92d84a18a41a5108c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/18ef01d4e97239dc902f697700d263a92c90b77164e43cbdce32b7683d88532c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a4815d488521ccd73f0ab845ec68225e989f6f8ae13f0fd0307fde0d78397399242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE TOO FLY",
+          descripcion: ".",
+          precio: "$39.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e013b48e00fdd8b4dcfe86972dda350a0b7115be5f17b3f228c54057b9f57b56242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/82efc9f1e1feee4c233e1a46b732878a6b3fbe80eef4988c12bdeb3199437b18242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA ELITE",
+          descripcion: ".",
+          precio: "$78.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/25fcf7308a034f46c4f6a237d58fbd3b2dd25e41cb173520cd4bdbf312162052242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3044d173514657c7eea64e5ee54b942324c1854fccb1cf723b2972dd182b224b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/f13b992e578880f8d81e30e9fea55db34ff3265c69efa8956258ce10411ad276242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE TEE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$54.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e6627bdb08c3bea45e76164028e6365817ff1fa7b2f8913ed9a2c8fd67bc8828242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/09921e22c3451c430019954e6b824be2b8b133f6ca711005a21c77be00673b31242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/c74da0a55f6e67a6c87ed7bbcd6876edecfbd9e6847bf99efad1af0e3eeb03d9242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE AIR FORCE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$18.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e954b7ef63556e3ba7b182eb2abb10f0687e21c877db2b5ea4ae310f8999cd54242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/574eb8b8c27eb0c310b83a8035518c8e30f3733e56b6cd92e13ab8b30ea00a56242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a3bb13ef0674eb10838aaeab386f5d7d537a569228d47849095eb15000eed279242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE TEE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$41.200",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/a0d13dfe15a941ce6c0bb96a0273d745a0aa6515bb30e5e9c4b6f6223214863e242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/27822e3c1355b31a83f43b975d955ee03d5fa7c7adea60113ad9ae519e80f6ca242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/abcad0a0f55b61f1e66505cd0d9431cce6fa043e6005b69dba3a365cc64b6342242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE OHIO STATE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$73.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/c9082e7d55365a20d5e592d709b0314bba42c5b264e28f344d944f0d2edde306242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/652920a4b0e669b73b96a316cde94476df9bb7302467cb21eaa9a439102a4171242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/92ce91816994babdf32c26e7116ee9da4045a4b0eccad2552368f1243ad5f21c242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE AIR",
+          descripcion: "TALLES S M L XL.",
+          precio: "$109.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/431ae42544186df547b511f9c916a3a3260a184f3ae3df0843ceb9ef7f0e8b7a242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/7319a12d34227d60e7e1562ab92c489f320f286f205ee58b107f5f464f8ee95e242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a50be64450c91c43fd7ec3e5b8e8d29125ba6dbf3810b844f5b683247d43a0c5242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "REMERA NIKE SLOGAN",
+          descripcion: "TALLES S M L XL.",
+          precio: "$220.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/42da640248b5962562e55fcbfe5c4b4ddc6a51d132bdf5596f5b8a5f16b176df242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/8fc9edbfdcb89993bf7450f0ea2d008a4f7a3b22308437d3767ded243c07ace6242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3eca770cb9ddbb1736773f15e9ade489541e8e55e0ad93b9de37b4756997f8ee242224.jpg"
+          ]
+        }
+      ],
+  Zapatillas: [
+
+        {
+          titulo: "Nike Air Max Plus Triple Black",
+          descripcion: "TALLES 37 38 39 40 41 42.",
+          precio: "$209.000",
+          imagenes: [
+            "https://onekickz.com/cdn/shop/files/tywtynqu44xadpbbnz8v_4974c057-d269-4e9c-b76e-84aa00e3ea76.webp?v=1756409768&width=960",
+            "https://onekickz.com/cdn/shop/files/gambtye3pnvyekoo4tn9_24a1a988-75e9-4149-b186-4de32650a601.webp?v=1756409767&width=960",
+            "https://onekickz.com/cdn/shop/files/mnwiwxisiii6ebqxuiwn_319d27ed-910f-4e65-89aa-43f8a75dd952.webp?v=1756409768&width=960"
+          ]
+        },
+
+        {
+          titulo: "Nike Air Max Plus Aquarius Blue",
+          descripcion: "TALLES 37 38 39 40 41 42.",
+          precio: "$209.000",
+          imagenes: [
+            "https://onekickz.com/cdn/shop/files/cmok52namryx6cyjj8z6_d6355f12-1176-4ce1-a9e1-58a4a76db0d8.webp?v=1756409769&width=960",
+            "https://onekickz.com/cdn/shop/files/kzo3ghr6sbfn00auv6vt_e674105e-0040-42a5-90d4-0dfcd76bccbd.webp?v=1756409770&width=960",
+            "https://onekickz.com/cdn/shop/files/nfy272ppkl43v2cjkcr4_2883fe13-1e4d-42fe-9b7a-e2b563d00ef0.webp?v=1756409770&width=960"
+          ]
+        },
+
+        {
+          titulo: "Nike Air Max Plus White Black Mint Gree",
+          descripcion: "TALLES 37 38 39 40 41 42.",
+          precio: "$209.000",
+          imagenes: [
+            "https://onekickz.com/cdn/shop/files/totautnitcfgucfxvwx1_24079b45-88bc-4b8d-9356-5a3c81f6fc0a.webp?v=1756171906&width=960",
+            "https://onekickz.com/cdn/shop/files/k2ymlucbkuhp8lxgpsjn_f1f67370-851d-45bf-a6ae-ee164532b3ea.webp?v=1756171906&width=960",
+            "https://onekickz.com/cdn/shop/files/m36gujwnbmayteh3qzoh_7838385b-b795-46b2-910b-b4e94d5b5c99.webp?v=1756171906&width=960"
+          ]
+        },
+
+        {
+          titulo: "Nike Air Max Plus Aqua",
+          descripcion: "TALLES 37 38 39 40 41 42.",
+          precio: "$189.999",
+          imagenes: [
+            "https://onekickz.com/cdn/shop/files/ky3khapzutmhglegdmur_367f4572-d413-4697-a7e4-b9210a12cc43.webp?v=1756171903&width=960",
+            "https://onekickz.com/cdn/shop/files/swumpd0u4fmfwvlcpgyy_6be802ff-9bfb-41c6-8953-16406df33c95.webp?v=1756171903&width=960",
+            "https://onekickz.com/cdn/shop/files/hixujmia0yfhsogrevof_5fc51792-19ce-4ccd-aa51-170206a88d16.webp?v=1756171903&width=960"
+          ]
+        },
+
+        {
+          titulo: "Nike Shox TL Black Metallic Hematite",
+          descripcion: "TALLES 37 38 39 40 41 42.",
+          precio: "$189.999",
+          imagenes: [
+            "https://onekickz.com/cdn/shop/files/qaoy5tgkd8wbc1wjcuui_b541157a-22b7-4542-a7ec-8e63819937c9.webp?v=1756168978&width=960",
+            "https://onekickz.com/cdn/shop/files/maluqw1xn5ofjdqez4hl_cb1e1d4a-e9be-41bf-a078-4c00411cc154.webp?v=1756168979&width=960",
+            "https://onekickz.com/cdn/shop/files/f8amk8p4eobr2dhb2wyj_8c315fda-ae25-4fac-a703-08164999c847.webp?v=1756168979&width=960"
+          ]
+        },
+
+        {
+          titulo: "",
+          descripcion: ".",
+          precio: "$189.999",
+          imagenes: [
+            "",
+            "",
+            ""
+          ]
+        },
+
+        {
+          titulo: "",
+          descripcion: ".",
+          precio: "$189.999",
+          imagenes: [
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      Camperas: [
+
+        {
+          titulo: "CAMPERA ADIDAS",
+          descripcion: "TALLES S M L XL.",
+          precio: "$29.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/b836975b3e5a348d36f571a40f9343009b20135d26adfa602edc4349f63444d9242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/285d1bf076f65bc90b5f6219cd521a16c648103085f21fb7559658e66bed11cf242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/689b2b19657211f8abb72f53161140b65b7ea1f940bd2accd80b39fa8350d66e242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA NIKE AZUL",
+          descripcion: "TALLES S M L XL.",
+          precio: "$11.800",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/8ba68bba73a1684c4c3c0ef1dd3807a8c65d4efb1947122007ecd91c36e23e13242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/18da50702317ec7172b02e833932d3a14446316d452da7b90d6799e25f065b81242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/07c80ea465fdd56389e6c0fe7c8c8814c4da5ebe1d49aadb2d483738192c331e242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA SUPREME BOOTLEG",
+          descripcion: "TALLES S M L XL",
+          precio: "$20.400",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/83cd56d9ea50e5f14656205e682097f72592954ba540b050bd29cfe195ab3a80242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/71bb11ae574d14daa40f6c6409463807399061b3727b8e80563dc4c3cc5dee61242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/93bafc1e5179813c6443ad2faa131980038014040e70c9d18a94a657c478704c242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA ADIDAS CLIMA365",
+          descripcion: "CAMPERA ADIDAS CLIMA365.",
+          precio: "$44.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/f5e4ba8a6fd4d6fc95201282431377fcf18eb19741f69daa8c3aaa096a06fcb9242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/fea11c914889ae8020e65ef54e47c32193ac3735fe9f195d31cc476fdba191ff242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/1110a528087a59cd87813fd26af1d6808ba5b64dbfd5056e8dc22c566a9aa5ef242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Nike Sherpa Big Logo",
+          descripcion: "TALLES S M L XL.",
+          precio: "$67.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/f5d506642ecb763df6bf799986ae35b02e2f0b0e6d4a365111a5bc8532a916ce242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/8aeceae71d6a5410103e263b4a3492ae5f761800369cdcd078c0a608f2198e76242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/1e46cf687a46ae7b7f848e29610310e7b7a9a8d73770a461f031d1e4e012990b242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Majestic Red Sox",
+          descripcion: "TALLES S M L XL.",
+          precio: "$62.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/f35776f11db0ab6942e15b88900c16ff0b071678f818eae790e16e492916952b242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e452ef0deb05ce5bde0a5825adda51c03d154c32e6e44e4f738e46f8b10fe724242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/d9304d530975d829af02de7b46626a5dfd610e974ec73d9ba107de0ee8d46d33242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERON PARKA NIKE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$84.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/df28bbea99b46ecbabe00bdca8a04afe9bdd28d60ac12ec74a8522e0c7ba673c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/c976bb278a565aa07eb891f875ee5907fe37fe7b12c3c564461c2fda69f5a493242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/bc2f302a9e90dd0024c0118c1ee8e1e44cf406ff0db932fe79adbc059da62fef242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA NIKE TECH",
+          descripcion: "TALLES S M L XL.",
+          precio: "$21.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/f77419b63b3d3afdd4e2ab5a3194dc9139a88e4bb1f47fda845e9ba12e8d6a5f242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/f87822fe872830727aa93bd046dc82c2223119a9054040927f35f805f24f34f1242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/689332bad4302908145b379337c872d28aeb746efdca8ef5a1be2a0792e3053b242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA ADIDAS RUNNING",
+          descripcion: "TALLES S M L XL.",
+          precio: "$112.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/c85c407fe999bbd201ca98f27ed6323caeac00fc661841407ffb6f0b4c132305242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/e5edad7597fa32ced7441b9b2aba8aed3fc71315ee12614f7fca20286f5fdb68242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/b3acbad9372cbf0d6e6225aa0546d4453a97a022ffca1971330973a1a800c5af242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ROMPEVIENTO NIKE SPORTWEAR",
+          descripcion: "TALLES S M L XL.",
+          precio: "$48.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/eb596c847d2a281242433be7998f0054befbc3864a80dfa0a1e3e3291c154181242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a48c266d73049d54d3ff0827ad6ef9caa72635264d0845db0016ad455d65b7c0242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4b45e24d7f549a594e4dd843ac4b2030b8a4db706cc4c6712943e6900e4b9d10242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ANORAK NIKE VINTAGE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$8.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/200fce0e884480a9005fb64f567a30513a1dc7531d16fbff0b5e9fedf36dd0e4242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/5a07e5d8f2a8c72b664d0ce7ecb049767e259174f98d2ac8896ecf25aaba6ab7242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/046975150b7a49fef43da5d93f316bbff6c26a1dc4c1c4d232dece4fea67a002242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "ANORAK NIKE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$58.999",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e5eb6283e87f5734df8dcbb8caa17087198648949d48dd75ed7192ce8f0a5240242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/a3108c19b57a8983db28c335e55366932ea6c16ec48d58c71395369f473529a6242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/f86c161434849ae0461067b4054c9974f5c9cc1e7807dc3d296f022f636fbab8242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CONJUNTO NIKE DRI-FIT",
+          descripcion: ".",
+          precio: "$98.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/0c99a1745f7244d54708bd92e741bf2eb1a2fa1db39f62b1a42d185c2f492f50242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/12e0f4687508c66d0e2076890fb4c60390f0afd4b45c8624906e61e650c8c3ff242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/3ae928ccace4bd6da1e88a665cb7a36c735be8656460635e536ae29b0e5edabf242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA NIKE",
+          descripcion: "TALLES S M L XL.",
+          precio: "$112.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/6e6f826eb13dcdd93cfc4958f23e73b6aab3e35948d9547427cc92d46bc4324c242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/4895b2016c15aa8337cd806638f32e86b18bdf7236f776fa0ae88f6b4ed920b0242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/c7af1ad58de03e30a0c27ca5a7b5f79f502c45a0b092b5bf94b036d02e06e6fc242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA NIKE ITALIA VTG",
+          descripcion: "TALLES S M L XL.",
+          precio: "$267.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/e605a05a98123672970d9aac3294f01ebfcdf22e4dd332898d1312628f2b0adc242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/69e5471884cb1cd6a799df5fdd23642b01b379ddc6eba8a656dc4df2564c799e242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/43d24676654d5c33b88267ef56e6bb891d602692db105a0ab31804591d131258242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "Campera TNF",
+          descripcion: "TALLES S M L XL.",
+          precio: "$31.200",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/6e999a21d1f209338d650d0f0290b99fb3c45b7b5345908fa37f8a2ef9a1a539242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/9dceb20acc0d79745cc4f7d11dd5f6eb587fece457fc252ce1186b0ab6246143242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/12483eddcea9660985ddb6947f77ebbe79e7ccbce8bc028443316933de54a616242224.jpg"
+          ]
+        },
+
+        {
+          titulo: "CAMPERA NIKE DRI-FIT",
+          descripcion: "TALLES S M L XL.",
+          precio: "$5.000",
+          imagenes: [
+            "https://d22fxaf9t8d39k.cloudfront.net/1fe2f304eb09caf19a62f4f86773d7083a373c729d51adc599659a8fd1c8a2df242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/126d038a18781b41992af2826dc0b540183cade00e9434de7cb5e84b22fe26e0242224.jpg",
+            "https://d22fxaf9t8d39k.cloudfront.net/20b13906d51f170c8107299c7090b935676b1d3e17b0885e182f6c642bb07e9d242224.jpg"
+          ]
+        }
+      ]
+
+    };
+
+    let carrito = [];
+
+    function renderCategorias() {
+      const contenedor = document.getElementById("contenedorCategorias");
+      for (let categoria in productos) {
+        const div = document.createElement("div");
+        div.id = categoria;
+        div.className = "categoria row row-cols-2 g-4";
+        
+        productos[categoria].forEach((prod, index) => {
+          div.innerHTML += `
+            <div class="col">
+              <div class="card h-100">
+                <img class="card-img-top" src="${prod.imagenes[0]}" alt="${prod.titulo}" onclick="abrirModal('${categoria}', ${index})">
+                <div class="card-body">
+                  <h5 class="card-title">${prod.titulo}</h5>
+                  <p class="card-text text-success fw-bold">${prod.precio}</p>
+                  <button class="btn btn-primary w-100" onclick="agregarAlCarrito('${categoria}', ${index})">Agregar al carrito</button>
+                </div>
+              </div>
+            </div>`;
+        });
+
+        contenedor.appendChild(div);
+      }
+    }
+
+    function mostrarCategoria(cat) {
+      document.querySelectorAll('.categoria').forEach(c => c.style.display = "none");
+      document.getElementById(cat).style.display = "flex";
+      document.getElementById(cat).style.flexWrap = "wrap";
+    }
+
+    function abrirModal(cat, index) {
+      const prod = productos[cat][index];
+      document.getElementById("productoTitulo").innerText = prod.titulo;
+      document.getElementById("productoDescripcion").innerText = prod.descripcion;
+
+      const cont = document.getElementById("productoImagenes");
+      cont.innerHTML = "";
+      prod.imagenes.forEach((img, i) => {
+        cont.innerHTML += `
+          <div class="carousel-item ${i === 0 ? 'active' : ''}">
+            <img src="${img}" class="d-block w-100" alt="${prod.titulo} imagen ${i+1}">
+          </div>`;
+      });
+
+      const modal = new bootstrap.Modal(document.getElementById("productoModal"));
+      modal.show();
+    }
+
+    function agregarAlCarrito(cat, index) {
+      const prod = productos[cat][index];
+      carrito.push(prod);
+      document.getElementById("cartCount").innerText = carrito.length;
+      actualizarCarrito();
+    }
+
+    function abrirCarrito() {
+      const modal = new bootstrap.Modal(document.getElementById("carritoModal"));
+      modal.show();
+    }
+
+    function actualizarCarrito() {
+      const cont = document.getElementById("carritoContenido");
+      if (carrito.length === 0) {
+        cont.innerHTML = "<p>Tu carrito está vacío.</p>";
+        return;
+      }
+      cont.innerHTML = "<ul class='list-group'>";
+      carrito.forEach((item, i) => {
+        cont.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${item.titulo} - ${item.precio}
+            <button class="btn btn-sm btn-danger" onclick="eliminarDelCarrito(${i})">X</button>
+          </li>`;
+      });
+      cont.innerHTML += "</ul>";
+    }
+
+    function eliminarDelCarrito(i) {
+      carrito.splice(i, 1);
+      document.getElementById("cartCount").innerText = carrito.length;
+      actualizarCarrito();
+    }
+
+    renderCategorias();
+    mostrarCategoria('Chombas');
+
+// ---- Manejo de datos personales ----
+const campos = ['datoNombre','datoApellido','datoDni','datoTelefono','datoDireccion','datoCiudad','datoProvincia','datoCp'];
+
+function cargarDatosPersonales(){
+  campos.forEach(id => {
+    let valor = localStorage.getItem(id) || "";
+    document.getElementById(id).value = valor;
+    document.getElementById(id).addEventListener('input', function(){
+      localStorage.setItem(id, this.value);
+    });
+  });
+}
+
+// Llamar al cargar modal
+document.getElementById('carritoModal').addEventListener('shown.bs.modal', cargarDatosPersonales);
+
+// Guardar carrito en localStorage al finalizar compra
+document.querySelector('#carritoModal .btn-success').addEventListener('click', function(){
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  localStorage.setItem("envioPrecio", 7000);
+  window.location.href = "pago.html";
+});
+
+  
+// Validación DNI con puntos automáticos
+const dniInput = document.getElementById('datoDni');
+const telefonoInput = document.getElementById('datoTelefono');
+const finalizarBtn = document.querySelector('.btn.btn-success');
+
+function validarFormulario() {
+    const telValido = telefonoInput.value.replace(/\D/g, '').length === 10;
+    const dniValido = dniInput.value.replace(/\D/g, '').length === 8;
+    finalizarBtn.disabled = !(telValido && dniValido);
+}
+
+dniInput.addEventListener('input', function() {
+    let valor = this.value.replace(/\D/g, '').slice(0, 8);
+    let formateado = valor.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
+    this.value = formateado;
+    const feedback = this.parentElement.querySelector('.invalid-feedback');
+    if (valor.length !== 8) {
+        feedback.style.display = 'block';
+        this.classList.add('is-invalid');
+    } else {
+        feedback.style.display = 'none';
+        this.classList.remove('is-invalid');
+    }
+    validarFormulario();
+});
+
+telefonoInput.addEventListener('input', function() {
+    const valor = this.value.replace(/\D/g, '');
+    this.value = valor;
+    const feedback = this.parentElement.parentElement.querySelector('.invalid-feedback');
+    if (valor.length !== 10) {
+        feedback.style.display = 'block';
+        this.classList.add('is-invalid');
+    } else {
+        feedback.style.display = 'none';
+        this.classList.remove('is-invalid');
+    }
+    validarFormulario();
+});
+
+validarFormulario();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function actualizarEnvioGratis(total) {
+    const envioGratis = document.getElementById('envioGratis');
+    const bloques = document.querySelectorAll('.d-flex.align-items-center.mb-3.p-2.border.rounded.bg-light');
+    const correoArg = bloques[bloques.length - 1];
+    if (!envioGratis || !correoArg) return;
+    
+    if (total >= 200000) {
+        envioGratis.style.display = 'flex';
+        envioGratis.classList.add('activo');
+        correoArg.classList.add('correo-inactivo');
+    } else {
+        envioGratis.style.display = 'none';
+        envioGratis.classList.remove('activo');
+        correoArg.classList.remove('correo-inactivo');
+    }
+}
+</script><script>
+document.getElementById('datoTelefono').addEventListener('input', function() {
+    const valor = this.value.replace(/\D/g, '');
+    this.value = valor;
+    const feedback = this.parentElement.parentElement.querySelector('.invalid-feedback');
+    if (valor.length !== 10) {
+        feedback.style.display = 'block';
+        this.classList.add('is-invalid');
+    } else {
+        feedback.style.display = 'none';
+        this.classList.remove('is-invalid');
+    }
+});
+</script>
+<script>
+function validarCampos() {
+  const nombre = document.getElementById('datoNombre')?.value.trim();
+  const apellido = document.getElementById('datoApellido')?.value.trim();
+  const dni = document.getElementById('datoDni')?.value.replace(/\D/g, '');
+  const telefono = document.getElementById('datoTelefono')?.value.replace(/\D/g, '');
+  const direccion = document.getElementById('datoDireccion')?.value.trim();
+  const ciudad = document.getElementById('datoCiudad')?.value.trim();
+  const provincia = document.getElementById('datoProvincia')?.value.trim();
+  const cp = document.getElementById('datoCp')?.value.trim();
+
+  const boton = document.querySelector('.btn.btn-success');
+  if (!boton) return;
+  const valido = nombre && apellido && dni.length === 8 && telefono.length === 10 && direccion && ciudad && provincia && cp;
+
+  boton.disabled = !valido;
+  boton.classList.toggle('btn-success', valido);
+  boton.classList.toggle('btn-secondary', !valido);
+}
+
+// Revalidar al abrir el carrito
+document.getElementById('carritoModal')?.addEventListener('shown.bs.modal', validarCampos);
+
+// Revalidar cuando se edite cualquier campo
+document.querySelectorAll('#datoNombre, #datoApellido, #datoDni, #datoTelefono, #datoDireccion, #datoCiudad, #datoProvincia, #datoCp')
+  .forEach(input => input.addEventListener('input', validarCampos));
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const campos = {
+    nombre: document.getElementById("datoNombre"),
+    apellido: document.getElementById("datoApellido"),
+    dni: document.getElementById("datoDni"),
+    telefono: document.getElementById("datoTelefono"),
+    direccion: document.getElementById("datoDireccion"),
+    ciudad: document.getElementById("datoCiudad"),
+    provincia: document.getElementById("datoProvincia"),
+    cp: document.getElementById("datoCp")
+  };
+
+  const botonFinalizar = document.querySelector(".btn.btn-success");
+  botonFinalizar.disabled = true;
+
+  Object.values(campos).forEach(campo => {
+    campo.addEventListener("input", validarFormulario);
+  });
+
+  function validarFormulario() {
+    const dniValido = /^\d{8}$/.test(campos.dni.value.replace(/\D/g, ""));
+    const telValido = /^\d{10}$/.test(campos.telefono.value.replace(/\D/g, ""));
+    const camposTextoOk = campos.nombre.value.trim() &&
+                          campos.apellido.value.trim() &&
+                          campos.direccion.value.trim() &&
+                          campos.ciudad.value.trim() &&
+                          campos.provincia.value.trim() &&
+                          campos.cp.value.trim();
+
+    mostrarError(campos.dni, dniValido, "El DNI debe tener 8 dígitos.");
+    mostrarError(campos.telefono, telValido, "El número debe tener 10 dígitos.");
+
+    if (dniValido && telValido && camposTextoOk) {
+      botonFinalizar.disabled = false;
+      botonFinalizar.classList.add("btn-success");
+    } else {
+      botonFinalizar.disabled = true;
+      botonFinalizar.classList.add("btn-success");
+    }
+  }
+
+  function mostrarError(input, valido, mensaje) {
+    let feedback = input.closest(".mb-2").querySelector(".invalid-feedback");
+    if (!feedback) return;
+    feedback.textContent = mensaje;
+    feedback.style.display = valido ? "none" : "block";
+  }
+});
+</script><div id="toastContainer" style="position:fixed; top:90px; right:20px; z-index:2000;"></div>
+<script>
+function generarEstrellas(nombreProducto) {
+  const especiales = ["Viking", "Tanke", "Spy Ridder", "MT200"];
+  let rating;
+  if (especiales.some(marca => nombreProducto.toLowerCase().includes(marca.toLowerCase()))) {
+    rating = 5;
+  } else {
+    const rand = Math.random();
+    if (rand < 0.5) rating = 3;
+    else if (rand < 0.85) rating = 4;
+    else rating = 5;
+  }
+
+  let estrellas = '';
+  for (let i = 0; i < rating; i++) {
+    estrellas += '<i class="bi bi-star-fill" style="color:#ffc107;"></i>';
+  }
+  for (let i = rating; i < 5; i++) {
+    estrellas += '<i class="bi bi-star" style="color:#ffc107;"></i>';
+  }
+  return `<div class="product-rating" style="margin:6px 0;">${estrellas}</div>`;
+}
+
+function aplicarEstrellas() {
+  document.querySelectorAll(".card-title").forEach(titulo => {
+    if (!titulo.parentElement.querySelector(".product-rating")) {
+      const nombre = titulo.textContent.trim();
+      titulo.insertAdjacentHTML('afterend', generarEstrellas(nombre));
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarEstrellas(); // Aplicar al cargar el index
+  const observer = new MutationObserver(aplicarEstrellas);
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.card').forEach(function(card) {
+    const priceEl = card.querySelector('.card-price, .card-text');
+    if (priceEl) {
+      const price = parseInt(priceEl.textContent.replace(/[$.]/g, ''));
+      if (!isNaN(price) && price >= 200000) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('card-wrapper');
+        card.parentNode.insertBefore(wrapper, card);
+        wrapper.appendChild(card);
+        const badge = document.createElement('div');
+        badge.className = 'envio-gratis-badge';
+        badge.textContent = 'Envío Gratis';
+        wrapper.appendChild(badge);
+      }
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+      const item = this.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+});
+</script>
+<div class="sobre-contacto" style="background-color:#343a40; color:#fff; padding: 40px 20px; margin-top: 60px;">
+<div class="container">
+<div class="row">
+<div class="col-md-6 mb-4">
+<h4 class="fw-bold mb-3">Sobre Nosotros</h4>
+<p>En PLH Store nos especializamos  en ropa de alta calidad original con envío a todo el país.</p>
+</div>
+<div class="col-md-6">
+<h4 class="fw-bold mb-3">Contáctanos</h4>
+<p><i class="bi bi-geo-alt-fill"></i> Rosario, Santa Fe, Argentina</p>
+<p><i class="bi bi-telephone-fill"></i> +54 2477 399308</p>
+<p><i class="bi bi-envelope-fill"></i> plhstore.ar@gmail.com</p>
+</div>
+</div>
+</div>
+</div>
+<footer style="background-color:#343a40; text-align:center; padding: 20px; font-size:0.9rem; color:#ccc; margin-top:0;">
+<img alt="PLH Store" src="sbk_store_logo.png" style="max-height:40px; display:block; margin:0 auto 10px auto;"/>
+<p>© PLH Store 2025 - Todos los derechos reservados</p>
+</footer>
+<!-- Botón flotante de WhatsApp -->
+<a class="whatsapp-float" href="https://wa.me/542477399308?text=Hola%20estoy%20interesado%20en%20un%20producto" target="_blank">
+<i class="bi bi-whatsapp"></i>
+</a>
+<style>
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const pedidoData = localStorage.getItem("pedidoPendiente");
+  if (pedidoData) {
+    const pedido = JSON.parse(pedidoData);
+    const ahora = new Date();
+    const expira = new Date(pedido.expira);
+
+    if (ahora < expira) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Pedido pendiente',
+        html: `<b>Código:</b> #${pedido.codigo}<br>
+               <small>Este pedido se encuentra en estado <b>PENDIENTE</b>.</small><br>
+               <small>Expira a las <b>${expira.toLocaleTimeString()}</b></small>`,
+        confirmButtonText: 'Descargar Factura',
+        cancelButtonText: 'Cerrar',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#6c757d',
+        customClass: {
+          title: 'swal2-title',
+          htmlContainer: 'swal2-html-container',
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      }).then(result => {
+        if (result.isConfirmed) {
+          generarFacturaDesdePedido(pedido);
+        }
+      });
+    } else {
+      localStorage.removeItem("pedidoPendiente");
+    }
+  }
+});
+
+function generarFacturaDesdePedido(pedido) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const fechaStr = new Date(pedido.fecha).toLocaleString();
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.setTextColor(40, 40, 40);
+  doc.text("PLH Store", 20, 20);
+
+  doc.setFontSize(12);
+  doc.setTextColor(100);
+  doc.text(`Fecha: ${fechaStr}`, 150, 20);
+  doc.text(`Pedido: #${pedido.codigo}`, 150, 28);
+  doc.setDrawColor(200);
+  doc.line(20, 35, 190, 35);
+
+  // Tabla productos
+  doc.setFontSize(14);
+  doc.setTextColor(40, 40, 40);
+  doc.text("Detalle de compra:", 20, 45);
+  doc.setFontSize(11);
+  let startY = 55;
+  doc.setFillColor(230, 230, 230);
+  doc.rect(20, startY, 170, 8, "F");
+  doc.text("Producto", 22, startY + 6);
+  doc.text("Precio", 160, startY + 6);
+  startY += 12;
+  let total = 0;
+  pedido.carrito.forEach(p => {
+    doc.text(p.titulo, 22, startY);
+    doc.text(p.precio, 160, startY);
+    startY += 8;
+    total += parseFloat(p.precio.replace(/[^0-9]/g, ""));
+  });
+  let envio = parseFloat(localStorage.getItem("envioPrecio") || "0");
+  let final = total + envio;
+  doc.line(20, startY, 190, startY);
+  startY += 10;
+  doc.text(`Subtotal: $${total}`, 140, startY);
+  startY += 7;
+  doc.text(`Envío: $${envio}`, 140, startY);
+  startY += 7;
+  doc.setFont("helvetica", "bold");
+  doc.text(`Total: $${final}`, 140, startY);
+
+  // Datos comprador
+  startY += 20;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("Datos del comprador", 20, startY);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+  startY += 10;
+  Object.keys(pedido.comprador).forEach(key => {
+    doc.text(`${key.replace("dato","")}: ${pedido.comprador[key]}`, 22, startY);
+    startY += 6;
+  });
+
+  startY += 10;
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(200, 0, 0);
+  doc.text("ESTADO: PAGO PENDIENTE", 20, startY);
+
+  doc.setFontSize(10);
+  doc.setTextColor(50);
+  doc.text("Gracias por confiar en PLH Store", 105, 280, { align: "center" });
+  doc.setTextColor(37, 211, 102);
+  doc.text("WhatsApp: +54 9 11 2345 6789", 105, 287, { align: "center" });
+
+  doc.save(`Factura_${pedido.codigo}.pdf`);
+}
+</script>
+<script>document.addEventListener('DOMContentLoaded', function(){ mostrarCategoria('inicio'); });</script>
+<!-- Botón de seguimiento al lado del carrito -->
+
+
+<!-- Modal Seguimiento -->
+<div class="modal fade" id="seguimientoModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title"><i class="bi bi-truck"></i> Seguimiento de Pedido</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Ingresa tu código de pedido</label>
+          <input type="text" id="codigoPedidoInput" class="form-control" placeholder="Ej: SBK123456"/>
+        </div>
+        <button class="btn btn-success w-100 mb-4" onclick="verSeguimiento()">Ver seguimiento</button>
+
+        <!-- Tracking -->
+        <div id="trackingContainer" style="display:none;">
+          <div class="tracking d-flex justify-content-between text-center">
+            <div class="step">
+              <div id="step1" class="circle active"><i class="bi bi-credit-card"></i></div>
+              <p>Pendiente</p>
+            </div>
+            <div class="line flex-grow-1"></div>
+            <div class="step">
+              <div id="step2" class="circle"><i class="bi bi-gear"></i></div>
+              <p>Procesando</p>
+            </div>
+            <div class="line flex-grow-1"></div>
+            <div class="step">
+              <div id="step3" class="circle"><i class="bi bi-box-seam"></i></div>
+              <p>Despacho</p>
+            </div>
+            <div class="line flex-grow-1"></div>
+            <div class="step">
+              <div id="step4" class="circle"><i class="bi bi-check-circle"></i></div>
+              <p>Entregado</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tracking .circle {
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    background: #ddd; color: white;
+    margin: 0 auto 6px;
+  }
+  .tracking .circle.active { background: orange; }
+  .tracking .circle.done { background: #28a745; }
+  .tracking p { font-size: 0.85rem; margin: 0; }
+  .tracking .line {
+    height: 4px;
+    background: #ddd;
+    align-self: center;
+    margin: 0 4px;
+  }
+</style>
+
+<script>
+  function abrirSeguimiento(){
+    new bootstrap.Modal(document.getElementById("seguimientoModal")).show();
+  }
+
+  function verSeguimiento(){
+    const codigo = document.getElementById("codigoPedidoInput").value.trim();
+    const pedido = JSON.parse(localStorage.getItem("pedidoPendiente") || "{}");
+
+    if(pedido.codigo === codigo){
+      document.getElementById("trackingContainer").style.display = "block";
+
+      // siempre queda en "Pendiente"
+      ["step1","step2","step3","step4"].forEach(id=>{
+        document.getElementById(id).className="circle";
+      });
+      document.getElementById("step1").classList.add("active");
+    } else {
+      alert("Código inválido o vencido");
+    }
+  }
+</script>
+
+</body>
+</html>
+<style>
+.toast-alert {
+  background: rgba(30, 30, 30, 0.95);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+}
+.toast-alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast-alert i {
+  font-size: 1.3rem;
+}
+.cart-pulse {
+  animation: pulse 0.6s ease;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+</style>
+<script>
+function mostrarToast(nombreProducto) {
+  const toastContainer = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast-alert';
+  toast.innerHTML = '<i class="bi bi-cart"></i> ' + nombreProducto + ' agregado al carrito';
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 50);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+
+  const cartIcon = document.querySelector('.bi-cart');
+  if(cartIcon){
+    cartIcon.classList.add('cart-pulse');
+    setTimeout(() => cartIcon.classList.remove('cart-pulse'), 600);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('button, a').forEach(el => {
+    if (el.textContent.trim().toLowerCase().includes('agregar al carrito')) {
+      el.addEventListener('click', () => {
+        const card = el.closest('.card');
+        const nombre = card ? (card.querySelector('.card-title')?.textContent || 'Producto') : 'Producto';
+        mostrarToast(nombre);
+      });
+    }
+  });
+});
+</script>
+<div class="faq-section container">
+<h3 class="fw-bold mb-3">Preguntas Frecuentes</h3>
+<div class="faq-item">
+<div class="faq-question">¿Cuánto tarda el envío? <span class="faq-icon">▼</span></div>
+<div class="faq-answer">Los envíos tardan entre 3 y 7 días hábiles dependiendo de tu localidad.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">¿Puedo pagar en cuotas? <span class="faq-icon">▼</span></div>
+<div class="faq-answer">Sí, aceptamos pagos en hasta 12 cuotas sin interés con tarjetas seleccionadas.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">¿Tienen garantía los productos? <span class="faq-icon">▼</span></div>
+<div class="faq-answer">Sí, todos nuestros productos cuentan con garantía oficial del fabricante.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">¿Cómo puedo realizar una devolución? <span class="faq-icon">▼</span></div>
+<div class="faq-answer">Puedes solicitar una devolución dentro de los 10 días hábiles posteriores a la entrega.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">¿Dónde puedo contactarlos? <span class="faq-icon">▼</span></div>
+<div class="faq-answer">Puedes escribirnos a nuestro WhatsApp disponible en la sección de acerca de nosotros.</div>
+</div>
+</div>
+<div class="d-flex justify-content-center gap-3 mt-4">
+<a class="btn btn-whatsapp" href="https://wa.me/XXXXXXXXXXX">WhatsApp</a>
+<a class="btn btn-instagram" href="https://instagram.com/XXXXXXXXXXX">Instagram</a>
+</div>
