@@ -32,7 +32,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <div class="container-fluid">
-<a class="navbar-brand d-flex align-items-center" href="#">SBK Store</a>
+<a class="navbar-brand d-flex align-items-center" href="#">PLH Store</a>
 <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -46,7 +46,7 @@
 <div class="card-body text-center">
 <i class="bi bi-bank" style="font-size:3rem;"></i>
 <h5 class="card-title mt-3">Transferencia Bancaria</h5>
-<p class="card-text">Alias: sbk.store.mp <span id="btnAlias" onclick="copiarTexto('sbk.store.mp','btnAlias')" style="cursor:pointer; display:inline-block; padding:6px; border-radius:8px;"><i class="bi bi-clipboard text-dark" style="font-size:1.4rem;"></i></span><br/>CBU: 0000003100098765432100 <span id="btnCbu" onclick="copiarTexto('0000003100098765432100','btnCbu')" style="cursor:pointer; display:inline-block; padding:6px; border-radius:8px;"><i class="bi bi-clipboard text-dark" style="font-size:1.4rem;"></i></span></p>
+<p class="card-text">Alias: mxmxmx <span id="btnAlias" onclick="copiarTexto('mxmxmx','btnAlias')" style="cursor:pointer; display:inline-block; padding:6px; border-radius:8px;"><i class="bi bi-clipboard text-dark" style="font-size:1.4rem;"></i></span><br/>CBU: 0000085700273462886507 <span id="btnCbu" onclick="copiarTexto('0000085700273462886507','btnCbu')" style="cursor:pointer; display:inline-block; padding:6px; border-radius:8px;"><i class="bi bi-clipboard text-dark" style="font-size:1.4rem;"></i></span></p>
 <!-- Botón abre modal -->
 <button class="btn btn-success w-100" data-bs-target="#confirmarTransferenciaModal" data-bs-toggle="modal">
             Ya transferí
@@ -282,9 +282,9 @@ function generarFacturaPDF() {
   // ==== Footer ====
   doc.setFontSize(10);
   doc.setTextColor(50);
-  doc.text("Gracias por confiar en SBK Store", 105, 280, { align: "center" });
+  doc.text("Gracias por confiar en PLH Store", 105, 280, { align: "center" });
   doc.setTextColor(37, 211, 102);
-  doc.text("WhatsApp: +54 9 11 2345 6789", 105, 287, { align: "center" });
+  doc.text("WhatsApp: +54 2477399308", 105, 287, { align: "center" });
 
   doc.save(`Factura_${codigoPedido}.pdf`);
 }
@@ -354,7 +354,7 @@ function generarFacturaPDF() {
   doc.setTextColor(255,255,255);
   doc.setFont("helvetica","bold");
   doc.setFontSize(22);
-  doc.text("SBK STORE", marginX, 18);
+  doc.text("PLH STORE", marginX, 18);
 
   const fecha = new Date();
   const fechaStr = fecha.toLocaleDateString() + " " + fecha.toLocaleTimeString();
@@ -455,9 +455,9 @@ function generarFacturaPDF() {
 
   doc.setFontSize(9);
   doc.setTextColor(180);
-  doc.text("Gracias por confiar en SBK Store", W/2, H - 14, { align: "center" });
+  doc.text("Gracias por confiar en PLH Store", W/2, H - 14, { align: "center" });
   doc.setTextColor(brand.r, brand.g, brand.b);
-  doc.text("WhatsApp: +54 9 11 2345 6789", W/2, H - 8, { align: "center" });
+  doc.text("WhatsApp: +54 2477399308", W/2, H - 8, { align: "center" });
 
   doc.save(`Factura_${codigoPedido}.pdf`);
 }
